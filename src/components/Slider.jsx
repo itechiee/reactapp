@@ -10,17 +10,21 @@ const images = [
 function Slider() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // useEffect(() => {
-    //     // console.log('Component mounted or count changed', count);
-    //     // return() => console.log('cleanup useEffect');
-    // });
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            handleNext();
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [currentIndex]);
 
     const handleNext = () => {
         (currentIndex === images.length -1) ? setCurrentIndex(0) : setCurrentIndex(() => currentIndex +1)
     }
 
     const handlePrev = () => {
-        // setCurrentIndex(() => currentIndex +1)
         (currentIndex === 0) ? setCurrentIndex(() => images.length -1) : setCurrentIndex(() => currentIndex -1)
     }
     return (
